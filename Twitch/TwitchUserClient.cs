@@ -30,12 +30,6 @@ namespace Twitch
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
         {
             return await AppClient.SendAsync(request);
-            if(Access is UserAccessAcgf)
-            {
-
-            }
         }
-             
-        
     }
 }
