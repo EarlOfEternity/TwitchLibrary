@@ -1,6 +1,6 @@
-﻿namespace Twitch.Authentication
+﻿namespace Twitch.Authentication.Access
 {
-    public interface IAccess
+    public interface ITwitchAccess
     {
         public string Token { get; }
         public string Type { get; }

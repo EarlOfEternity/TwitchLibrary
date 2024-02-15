@@ -1,6 +1,16 @@
-﻿namespace Twitch.Authentication
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Json;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using Twitch.Authentication.Application;
+using Twitch.Exceptions;
+
+namespace Twitch.Authentication.Access
 {
-    public abstract class Access : IAccess
+    public class TwitchAccess : ITwitchAccess
     {
         private string _type = "OAuth";
 
@@ -19,15 +29,15 @@
                     _type = value;
             }
         }
-
-        internal Access() { }
-        public Access(string token, string type)
+        public TwitchAccess(string token, string type)
         {
             Token = token;
             Type = type;
         }
 
-        internal void Udpate(string type, string token)
+
+
+        internal virtual void Udpate(string type, string token)
         {
             Token = token;
             Type = type;

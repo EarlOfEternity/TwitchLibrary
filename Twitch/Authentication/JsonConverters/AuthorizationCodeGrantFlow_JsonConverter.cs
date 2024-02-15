@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using Twitch.Authentication.Access.Scopes;
+using Twitch.Authentication.User;
 
-namespace Twitch.Authentication.Accesses.JsonConverters
+namespace Twitch.Authentication.JsonConverters
 {
-    internal class JsonConverterAcgf : JsonConverter<UserAccessAcgf>
+    internal class AuthorizationCodeGrantFlow_JsonConverter : JsonConverter<AuthorizationCodeGrantFlow>
     {
-        public override UserAccessAcgf Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override AuthorizationCodeGrantFlow Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.StartObject)
             {
@@ -35,7 +32,7 @@ namespace Twitch.Authentication.Accesses.JsonConverters
                             reader.Read();
                             if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "scope")
                             {
-                                ScopesBuilder scopesBuilder = new();
+                                TwitchScopesBuilder scopesBuilder = new();
 
                                 reader.Read();
                                 if (reader.TokenType == JsonTokenType.StartArray)
@@ -68,17 +65,18 @@ namespace Twitch.Authentication.Accesses.JsonConverters
             throw new JsonException();
         }
 
-        public override void Write(Utf8JsonWriter writer, UserAccessAcgf userAccessAcgf, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, AuthorizationCodeGrantFlow userAccessAcgf, JsonSerializerOptions options)
         {
             writer.WriteStartObject();
             writer.WriteString("access_token", userAccessAcgf.Token);
             writer.WriteString("refresh_token", userAccessAcgf.RefreshToken);
             writer.WriteStartArray("scope");
 
-            List<string> copes = userAccessAcgf.Scopes.GetScopes();
-            foreach (string scope in copes)
+            string[] scopes = userAccessAcgf.Scopes.GetArrayOfScopes();
+
+            foreach (string scope in scopes)
                 writer.WriteStringValue(scope);
-            
+
             writer.WriteString("token_type", userAccessAcgf.Type);
             writer.WriteEndObject();
         }

@@ -1,92 +1,84 @@
-﻿using static System.Formats.Asn1.AsnWriter;
-
-namespace Twitch.Authentication
+﻿namespace Twitch.Authentication.Access.Scopes
 {
-    public class ScopesBuilder
+    public class TwitchScopesBuilder
     {
-        #region API Scopes
-        public bool AnalyticsReadExtensions{ get; set; } = false;
-        public bool AnalyticsReadGames{ get; set; } = false;
-        public bool BitsRead{ get; set; } = false;
-        public bool ChannelManageAds{ get; set; } = false;
-        public bool ChannelReadAds{ get; set; } = false;
-        public bool ChannelManageBroadcast{ get; set; } = false;
-        public bool ChannelReadCharity{ get; set; } = false;
-        public bool ChannelEditCommercial{ get; set; } = false;
-        public bool ChannelReadEditors{ get; set; } = false;
-        public bool ChannelManageExtensions{ get; set; } = false;
-        public bool ChannelReadGoals{ get; set; } = false;
-        public bool ChannelReadGuestStar{ get; set; } = false;
-        public bool ChannelManageGuestStar{ get; set; } = false;
-        public bool ChannelReadHypeTrain{ get; set; } = false;
-        public bool ChannelManageModerators{ get; set; } = false;
-        public bool ChannelReadPolls{ get; set; } = false;
-        public bool ChannelManagePolls{ get; set; } = false;
-        public bool ChannelReadPredictions{ get; set; } = false;
-        public bool ChannelManagePredictions{ get; set; } = false;
-        public bool ChannelManageRaids{ get; set; } = false;
-        public bool ChannelReadRedemptions{ get; set; } = false;
-        public bool ChannelManageRedemptions{ get; set; } = false;
-        public bool ChannelManageSchedule{ get; set; } = false;
-        public bool ChannelReadStreamKey{ get; set; } = false;
-        public bool ChannelReadSubscriptions{ get; set; } = false;
-        public bool ChannelManageVideos{ get; set; } = false;
-        public bool ChannelReadVips{ get; set; } = false;
-        public bool ChannelManageVips{ get; set; } = false;
-        public bool ClipsEdit{ get; set; } = false;
-        public bool ModerationRead{ get; set; } = false;
-        public bool ModeratorManageAnnouncements{ get; set; } = false;
-        public bool ModeratorManageAutomod{ get; set; } = false;
-        public bool ModeratorReadAutomodSettings{ get; set; } = false;
-        public bool ModeratorManageAutomodSettings{ get; set; } = false;
-        public bool ModeratorManageBannedUsers{ get; set; } = false;
-        public bool ModeratorReadBlockedTerms{ get; set; } = false;
-        public bool ModeratorManageBlockedTerms{ get; set; } = false;
-        public bool ModeratorManageChatMessages{ get; set; } = false;
-        public bool ModeratorReadChatSettings{ get; set; } = false;
-        public bool ModeratorManageChatSettings{ get; set; } = false;
-        public bool ModeratorReadChatters{ get; set; } = false;
-        public bool ModeratorReadFollowers{ get; set; } = false;
-        public bool ModeratorReadGuestStar{ get; set; } = false;
-        public bool ModeratorManageGuestStar{ get; set; } = false;
-        public bool ModeratorReadShieldMode{ get; set; } = false;
-        public bool ModeratorManageShieldMode{ get; set; } = false;
-        public bool ModeratorReadShoutouts{ get; set; } = false;
-        public bool ModeratorManageShoutouts{ get; set; } = false;
-        public bool UserEdit{ get; set; } = false;
-        public bool UserEditFollows{ get; set; } = false;
-        public bool UserReadBlockedUsers{ get; set; } = false;
-        public bool UserManageBlockedUsers{ get; set; } = false;
-        public bool UserReadBroadcast{ get; set; } = false;
-        public bool UserManageChatColor{ get; set; } = false;
-        public bool UserReadEmail{ get; set; } = false;
-        public bool UserReadFollows{ get; set; } = false;
-        public bool UserReadSubscriptions{ get; set; } = false;
-        public bool UserManageWhispers{ get; set; } = false;
-        #endregion
+        public bool AnalyticsReadExtensions { get; set; } = false;
+        public bool AnalyticsReadGames { get; set; } = false;
+        public bool BitsRead { get; set; } = false;
+        public bool ChannelManageAds { get; set; } = false;
+        public bool ChannelReadAds { get; set; } = false;
+        public bool ChannelManageBroadcast { get; set; } = false;
+        public bool ChannelReadCharity { get; set; } = false;
+        public bool ChannelEditCommercial { get; set; } = false;
+        public bool ChannelReadEditors { get; set; } = false;
+        public bool ChannelManageExtensions { get; set; } = false;
+        public bool ChannelReadGoals { get; set; } = false;
+        public bool ChannelReadGuestStar { get; set; } = false;
+        public bool ChannelManageGuestStar { get; set; } = false;
+        public bool ChannelReadHypeTrain { get; set; } = false;
+        public bool ChannelManageModerators { get; set; } = false;
+        public bool ChannelReadPolls { get; set; } = false;
+        public bool ChannelManagePolls { get; set; } = false;
+        public bool ChannelReadPredictions { get; set; } = false;
+        public bool ChannelManagePredictions { get; set; } = false;
+        public bool ChannelManageRaids { get; set; } = false;
+        public bool ChannelReadRedemptions { get; set; } = false;
+        public bool ChannelManageRedemptions { get; set; } = false;
+        public bool ChannelManageSchedule { get; set; } = false;
+        public bool ChannelReadStreamKey { get; set; } = false;
+        public bool ChannelReadSubscriptions { get; set; } = false;
+        public bool ChannelManageVideos { get; set; } = false;
+        public bool ChannelReadVips { get; set; } = false;
+        public bool ChannelManageVips { get; set; } = false;
+        public bool ClipsEdit { get; set; } = false;
+        public bool ModerationRead { get; set; } = false;
+        public bool ModeratorManageAnnouncements { get; set; } = false;
+        public bool ModeratorManageAutomod { get; set; } = false;
+        public bool ModeratorReadAutomodSettings { get; set; } = false;
+        public bool ModeratorManageAutomodSettings { get; set; } = false;
+        public bool ModeratorManageBannedUsers { get; set; } = false;
+        public bool ModeratorReadBlockedTerms { get; set; } = false;
+        public bool ModeratorManageBlockedTerms { get; set; } = false;
+        public bool ModeratorManageChatMessages { get; set; } = false;
+        public bool ModeratorReadChatSettings { get; set; } = false;
+        public bool ModeratorManageChatSettings { get; set; } = false;
+        public bool ModeratorReadChatters { get; set; } = false;
+        public bool ModeratorReadFollowers { get; set; } = false;
+        public bool ModeratorReadGuestStar { get; set; } = false;
+        public bool ModeratorManageGuestStar { get; set; } = false;
+        public bool ModeratorReadShieldMode { get; set; } = false;
+        public bool ModeratorManageShieldMode { get; set; } = false;
+        public bool ModeratorReadShoutouts { get; set; } = false;
+        public bool ModeratorManageShoutouts { get; set; } = false;
+        public bool UserEdit { get; set; } = false;
+        public bool UserEditFollows { get; set; } = false;
+        public bool UserReadBlockedUsers { get; set; } = false;
+        public bool UserManageBlockedUsers { get; set; } = false;
+        public bool UserReadBroadcast { get; set; } = false;
+        public bool UserManageChatColor { get; set; } = false;
+        public bool UserReadEmail { get; set; } = false;
+        public bool UserReadFollows { get; set; } = false;
+        public bool UserReadSubscriptions { get; set; } = false;
+        public bool UserManageWhispers { get; set; } = false;
+        public bool ChannelBot { get; set; } = false;
+        public bool ChannelModerate { get; set; } = false;
+        public bool ChatEdit { get; set; } = false;
+        public bool ChatRead { get; set; } = false;
+        public bool UserBot { get; set; } = false;
+        public bool UserReadChat { get; set; } = false;
+        public bool WhispersRead { get; set; } = false;
+        public bool WhispersEdit { get; set; } = false;
 
-        #region Chat&PubSub Scopes
-        public bool ChannelBot{ get; set; } = false;
-        public bool ChannelModerate{ get; set; } = false;
-        public bool ChatEdit{ get; set; } = false;
-        public bool ChatRead{ get; set; } = false;
-        public bool UserBot{ get; set; } = false;
-        public bool UserReadChat{ get; set; } = false;
-        public bool WhispersRead{ get; set; } = false;
-        public bool WhispersEdit{ get; set; } = false;
-        #endregion
-
-        public ScopesBuilder() 
-        {
-            
-        }
-        public ScopesBuilder(string[] scopes)
+        public TwitchScopesBuilder() { }
+        public TwitchScopesBuilder(string[] scopes)
         {
             foreach (string scope in scopes)
             {
                 SetByName(scope);
             }
         }
+        internal TwitchScopes Build() => new TwitchScopes(this);
+
         public void SetByName(string scope)
         {
             switch (scope)
@@ -292,10 +284,10 @@ namespace Twitch.Authentication
             }
 
         }
-        public static bool operator ==(ScopesBuilder scopesB1, ScopesBuilder scopesB2) => scopesB1.Equals(scopesB2);
-        public static bool operator !=(ScopesBuilder scopesB1, ScopesBuilder scopesB2) => !scopesB1.Equals(scopesB2);
+        public static bool operator ==(TwitchScopesBuilder scopesB1, TwitchScopesBuilder scopesB2) => scopesB1.Equals(scopesB2);
+        public static bool operator !=(TwitchScopesBuilder scopesB1, TwitchScopesBuilder scopesB2) => !scopesB1.Equals(scopesB2);
 
-        public static ScopesBuilder Create(string line) => new(line.Split(' '));
+        public static TwitchScopesBuilder Create(string line) => new(line.Split(' '));
         public string GetScopes()
         {
             string scopes = "";
@@ -372,7 +364,7 @@ namespace Twitch.Authentication
 
         public override bool Equals(object? obj)
         {
-            if (obj is ScopesBuilder scopesBuilder)
+            if (obj is TwitchScopesBuilder scopesBuilder)
             {
                 if (AnalyticsReadExtensions != scopesBuilder.AnalyticsReadExtensions) return false;
                 if (AnalyticsReadGames != scopesBuilder.AnalyticsReadGames) return false;

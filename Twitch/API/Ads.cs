@@ -6,12 +6,13 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using Twitch.Clients;
 
 namespace Twitch.API
 {
     internal static class Ads
     {
-        public static Task<HttpResponseMessage> StartCommercial(TwitchUserClient userClient, int length)
+        public static Task<HttpResponseMessage> StartCommercial(TwitchAppUser userClient, int length)
         {
             if (userClient.Access.Scopes.ChannelEditCommercial)
                 if (length > 0 && length < 180)
@@ -29,11 +30,11 @@ namespace Twitch.API
                     return userClient.SendAsync(request);
                 }
                 else
-                    throw new Exception("Commercial length must be be less than 180 seconds");
+                    throw new System.Exception("Commercial length must be be less than 180 seconds");
             else
-                throw new Exception("StartCommercial request requires ChannelEditCommercial permission");
+                throw new System.Exception("StartCommercial request requires ChannelEditCommercial permission");
         }
-        public static Task<HttpResponseMessage> GetAdSchedule(TwitchUserClient userClient)
+        public static Task<HttpResponseMessage> GetAdSchedule(TwitchAppUser userClient)
         {
             if (userClient.Access.Scopes.ChannelReadAds)
             {
@@ -43,9 +44,9 @@ namespace Twitch.API
                 return userClient.SendAsync(request);
             }
             else
-                throw new Exception("GetAdSchedule request requires ChannelReadAds permission");
+                throw new System.Exception("GetAdSchedule request requires ChannelReadAds permission");
         }
-        public static Task<HttpResponseMessage> SnoozeNextAd(TwitchUserClient userClient)
+        public static Task<HttpResponseMessage> SnoozeNextAd(TwitchAppUser userClient)
         {
             if (userClient.Access.Scopes.ChannelManageAds)
             {
@@ -55,7 +56,7 @@ namespace Twitch.API
                 return userClient.SendAsync(request);
             }
             else
-                throw new Exception("SnoozeNextAd request requires ChannelManageAds permission");
+                throw new System.Exception("SnoozeNextAd request requires ChannelManageAds permission");
         }
     }
 }

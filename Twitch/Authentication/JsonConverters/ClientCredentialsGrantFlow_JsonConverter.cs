@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using Twitch.Authentication.Application;
 
-namespace Twitch.Authentication.Accesses.JsonConverters
+namespace Twitch.Authentication.JsonConverters
 {
-    internal class JsonConverterCcgf : JsonConverter<AppAccessCcgf>
+    internal class ClientCredentialsGrantFlow_JsonConverter : JsonConverter<ClientCredentialsGrantFlow>
     {
-        public override AppAccessCcgf Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override ClientCredentialsGrantFlow Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.StartObject)
             {
@@ -43,11 +39,11 @@ namespace Twitch.Authentication.Accesses.JsonConverters
             throw new JsonException();
         }
 
-        public override void Write(Utf8JsonWriter writer, AppAccessCcgf twitchAppAccess, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, ClientCredentialsGrantFlow access, JsonSerializerOptions options)
         {
             writer.WriteStartObject();
-            writer.WriteString("access_token", twitchAppAccess.Token);
-            writer.WriteString("token_type", twitchAppAccess.Type);
+            writer.WriteString("access_token", access.Token);
+            writer.WriteString("token_type", access.Type);
             writer.WriteEndObject();
         }
     }

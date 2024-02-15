@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using Twitch.Authentication.Accesses;
+using Twitch.Authentication.Access;
+using Twitch.Authentication.Access.Scopes;
+using Twitch.Clients;
 
-namespace Twitch.Authentication.Flows
+namespace Twitch.Authentication.User
 {
-    public static class Implict
+    public class ImplicitGrantFlow : TwitchUserAccess
     {
-        public static Uri CreateUri(this TwitchAppClient twitchClient, AuthenticationSettings settings, string? secret = null)
-            => Authentication.CreateUri(twitchClient, settings, "token", secret);
+        public ImplicitGrantFlow(string token, string type, TwitchScopesBuilder scopesBuilder) : base(token, type, scopesBuilder) { }
 
-        public static UserAccessIgf ConvertFromUri(Uri uri, string? state = null)
+        public static Uri GetUrl(TwitchAppClient twitchClient, string? state = null)
+            => TwitchAuthentication.GetUrl(twitchClient, "token", state);
+
+        public static ImplicitGrantFlow TryCreateFromUri(Uri uri, string? state = null)
         {
-            NameValueCollection query = HttpUtility.ParseQueryString(uri.Query);
+            NameValueCollection query = HttpUtility.ParseQueryString(uri.Fragment);
 
             string? receivedState = query.Get("state");
             if (receivedState != state)
@@ -24,7 +24,7 @@ namespace Twitch.Authentication.Flows
                 throw new Exception();
             }
 
-            string? token = query.Get("access_token");
+            string? token = query.Get("#access_token");
 
             if (token is not null)
             {
@@ -55,5 +55,6 @@ namespace Twitch.Authentication.Flows
 
             throw new Exception();
         }
+
     }
 }
