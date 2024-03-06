@@ -1,14 +1,7 @@
-﻿using Twitch.Authentication.Access.Scopes;
-
-namespace Twitch.Authentication.Access
+﻿namespace Twitch.Authentication.Access
 {
-    public abstract class TwitchUserAccess : TwitchAccess
+    public abstract class TwitchUserAccess(string token, string type, Scopes scopes) : TwitchAccess(token, type)
     {
-        internal TwitchScopes Scopes { get; init; }
-
-        public TwitchUserAccess(string token, string type, TwitchScopesBuilder scopesBuilder) : base(token, type)
-        {
-            Scopes = scopesBuilder.Build();
-        }
+        public Scopes Scopes { get; init; } = scopes;
     }
 }
