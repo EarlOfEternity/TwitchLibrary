@@ -22,7 +22,7 @@ namespace Twitch.Authentication
         }
 
         public Uri CreateUri( string? state = null) => 
-            new(AuthenticationUri.OAuthAuthorize.OriginalString +
+            new(AuthenticationEndpoints.OAuthAuthorize +
                 $"?client_id={_auth.Application.Id}" +
                 $"&force_verify={ForceVerify}" +
                 $"&redirect_uri={RedirectUri.OriginalString}" +

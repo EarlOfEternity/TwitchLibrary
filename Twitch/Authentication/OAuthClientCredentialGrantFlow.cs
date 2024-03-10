@@ -21,7 +21,7 @@ namespace Twitch.Authentication
             _auth = auth;
         }
 
-        internal HttpRequestMessage CreateRequest() => new(HttpMethod.Post, AuthenticationUri.OAuthToken)
+        internal HttpRequestMessage CreateRequest() => new(HttpMethod.Post, AuthenticationEndpoints.OAuthToken)
         {
             Content = new ByteArrayContent(Encoding.UTF8.GetBytes($"client_id={_auth.Application.Id}&client_secret={_auth.Application.Secret}&grant_type={Type}"))
             {
@@ -45,53 +45,64 @@ namespace Twitch.Authentication
         [JsonConverter(typeof(JsonConverter))]
         public class AppAccess : TwitchAccess
         {
+            private AppAccess() : base() { }
             internal AppAccess(string token, string type) : base(token, type) { }
-        }
-        internal class JsonConverter : JsonConverter<AppAccess>
-        {
-            private const string AccessToken = "access_token";
-            private const string ExpiresIn = "expires_in";
-            private const string TokenType = "token_type";
-
-            public override AppAccess Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+            private class JsonConverter : JsonConverter<AppAccess>
             {
-                if (reader.TokenType == JsonTokenType.StartObject)
+                public override AppAccess Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
                 {
-                    reader.Read();
-                    if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == AccessToken)
+                    AppAccess access = new();
+
+                    if (reader.TokenType == JsonTokenType.StartObject)
                     {
-                        reader.Read();
 
-                        string token = reader.GetString()!;
-
-                        reader.Read();
-                        if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == ExpiresIn)
+                        while (reader.TokenType is not JsonTokenType.EndObject)
                         {
                             reader.Read();
-                            reader.Read();
-                            if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == TokenType)
+
+                            if (reader.TokenType is JsonTokenType.PropertyName)
                             {
+                                string propertyName = reader.GetString()!;
                                 reader.Read();
 
-                                string type = reader.GetString()!;
+                                switch (propertyName)
+                                {
+                                    case "access_token":
 
-                                reader.Read();
-                                if (reader.TokenType == JsonTokenType.EndObject)
-                                    return new(token, type);
+                                        access.Token = reader.GetString()!;
+
+                                        break;
+
+                                    case "expires_in":
+                                        break;
+
+                                    case "token_type":
+
+                                        access.Type = reader.GetString()!;
+
+                                        break;
+
+                                    default:
+                                        break;
+                                }
                             }
                         }
                     }
-                }
 
-                throw new JsonException();
-            }
-            public override void Write(Utf8JsonWriter writer, AppAccess access, JsonSerializerOptions options)
-            {
-                writer.WriteStartObject();
-                writer.WriteString("access_token", access.Token);
-                writer.WriteString("token_type", access.Type);
-                writer.WriteEndObject();
+                    if (access.Token is not null && access.Type is not null)
+                        return access;
+                    else
+                        throw new JsonException();
+                }
+                public override void Write(Utf8JsonWriter writer, AppAccess access, JsonSerializerOptions options)
+                {
+                    writer.WriteStartObject();
+                    writer.WriteString("access_token", access.Token);
+                    writer.WriteString("token_type", access.Type);
+                    writer.WriteEndObject();
+                }
             }
         }
+        
     }
 }

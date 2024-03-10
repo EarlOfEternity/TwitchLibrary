@@ -1,7 +1,17 @@
-﻿namespace Twitch.Authentication.Access
+﻿
+namespace Twitch.Authentication.Access
 {
-    public abstract class TwitchUserAccess(string token, string type, Scopes scopes) : TwitchAccess(token, type)
+    public abstract class TwitchUserAccess : TwitchAccess
     {
-        public Scopes Scopes { get; init; } = scopes;
+        private protected Scopes Scopes { get; init; }
+        private protected TwitchUserAccess() : base() 
+        {
+            Scopes = null!;
+        }
+        private protected TwitchUserAccess(string token, string type, Scopes scopes) : base(token, type)
+        {
+            Scopes = scopes;
+        }
+
     }
 }

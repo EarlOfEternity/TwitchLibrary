@@ -4,7 +4,7 @@
     {
         private string _type = "OAuth";
 
-        public string Token { get; internal set; }
+        public string Token { get; private protected set; }
         public string Type
         {
             get
@@ -19,7 +19,11 @@
                     _type = value;
             }
         }
-        protected TwitchAccess(string token, string type)
+        private protected TwitchAccess()
+        {
+            Token = null!;
+        }
+        private protected TwitchAccess(string token, string type)
         {
             Token = token;
             Type = type;

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net;
 using System.Net.Http.Json;
-using System.Net;
-using System.Threading.Tasks;
 using Twitch.Authentication.Access;
 
 namespace Twitch.Authentication.Validation
 {
     public class TwitchAccessValidator
     {
-        private const string Endpoint = "https://id.twitch.tv/oauth2/validate";
         private HttpClient Requester { get; }
         public TwitchAccessValidator() 
         {
@@ -21,7 +16,7 @@ namespace Twitch.Authentication.Validation
             this.Requester = requester;
         }
 
-        public static HttpRequestMessage CreateValidationRequest(TwitchAccess access) => new(HttpMethod.Get, Endpoint)
+        public static HttpRequestMessage CreateValidationRequest(TwitchAccess access) => new(HttpMethod.Get, AuthenticationEndpoints.Validate)
         {
             Headers =
             {

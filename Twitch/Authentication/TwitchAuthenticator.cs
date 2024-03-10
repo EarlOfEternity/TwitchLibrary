@@ -29,8 +29,7 @@ namespace Twitch.Authentication
         {
             HttpResponseMessage responseMsg = await _requester.SendAsync(requestMsg);
             
-            if (Logger is not null) 
-                Logger.FlowLog(requestMsg, responseMsg);
+            Logger?.FlowLog(requestMsg, responseMsg);
             
             return responseMsg;
         }
